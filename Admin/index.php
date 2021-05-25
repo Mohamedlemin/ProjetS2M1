@@ -1,4 +1,9 @@
-<?php include 'header.html'; ?>
+<?php
+include('Admin_Session.php');
+include 'header.html';
+?>
+
+
 <!-- Start app main Content -->
 <div class="main-content">
     <section class="section">

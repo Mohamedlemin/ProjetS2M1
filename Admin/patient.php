@@ -1,3 +1,5 @@
+<?php include('Admin_Session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!--conexion a la base de donne-->
