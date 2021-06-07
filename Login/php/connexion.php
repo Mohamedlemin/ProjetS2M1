@@ -1,5 +1,5 @@
 <?php
-$con = new mysqli("localhost", "root", "", "ProjetM1S2");
+$con = new mysqli("localhost", "root", "", "Projetm1s2");
 if ($con->connect_error) {
     die("eurreur de type" . $con->connect_error);
 } else "OK";
