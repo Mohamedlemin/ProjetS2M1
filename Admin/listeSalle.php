@@ -32,31 +32,12 @@
                                              <th>numero</th>
                                              <th>nombre lit</th>
                                              <th>Service</th>
-                                             <th>nombre patient</th>
+                                           
 
                                              <th>Action</th>
                                          </tr>
                                      </thead>
-                                     <tbody>
-                                         <tr>
-
-                                             <td>1</td>
-                                             <td> 10</td>
-                                             <td>Pediatrie</td>
-                                             <td>5</td>
-
-                                             <td> <button href="#" class="btn btn-icon btn-primary"><i
-                                                         class="fas fa-plus-square"> </i></button>
-                                                 <button href="#" class="btn btn-icon btn-info btn-d"><i
-                                                         class="fas fa-eye"> </i></button>
-                                                 <a href="#" class="btn btn-icon btn-danger" data-toggle="tooltip"
-                                                     data-placement="top" title="supprimer salle"><i
-                                                         class="fas fa-trash-alt"></i> </a>
-                                             </td>
-                                         </tr>
-
-
-                                     </tbody>
+                       
                                  </table>
                              </div>
                          </div>
@@ -125,16 +106,100 @@
  <?php include 'footer.html'; ?>
  <!-- js et ajax part -->
  <script type="text/javascript">
-$(document).ready(function() {
+
+    $(document).ready(function() {
     $('#tableSalle').DataTable({
 
         "autoWidth": false,
 
 
-        "fnDrawCallback": function(oSettings) {}
+        "fnDrawCallback": function(oSettings) {},
+        "ajax": {
+            "url": "customer.php",
+            "type": "POST",
+            "data": {
+                method: "list_salle"
+
+            },
+            error: function(request, textStatus, errorThrown) {
+                swal(request.responseJSON.message);
+            }
+        },
+
+        columns: [
+            {
+                "data": "numero"
+            },
+            {
+                "data": "nombreLits"
+            },
+            {
+                "data": "nom"
+            },
+            { "data": null, render : function(data,type,row){
+                   
+                   return "<button title='Edit' class=' btn btn-icon  icon-left btn-warning btn-edit'><i class='far fa-user'></i></button> <button title='view' class='btn btn-icon  icon-left btn-info btn-d'><i class='fas fa-eye'></i></button> <button  title='Delete' class='btn btn-icon icon-left btn-danger btn-hapus' data-toggle='modal'><i class='fas fa-trash-alt'></i></button> ";
+               } 		}
+        ]
 
 
     });
+
+     //supprimer salle
+
+		$(document).on("click",".btn-hapus",function(){
+			let current_row = $(this).parents('tr'); 
+			if (current_row.hasClass('child')) { 
+				current_row = current_row.prev(); 
+			}
+			let table = $('#tableSalle').DataTable(); 
+			let data = table.row( current_row).data();
+			let idcust = data.id;
+			 swal({
+    title: 'Vous etes sure?',
+    text: 'Voulez-vous supprimer cette salle!',
+    icon: 'error',
+    buttons: true,
+    dangerMode: true,
+  })
+    .then((willDelete) => {
+      if (willDelete) {
+          	let ajax = {
+					method : "deleteSalle",
+					id_cust : idcust,
+				}
+				$.ajax({
+					url:"customer.php",
+					type: "POST",
+					data: ajax,
+					success: function(data, textStatus, jqXHR)
+					{
+		
+						$resp = JSON.parse(data);
+						if($resp['status'] == true){
+                               swal('Success! la salle  a été supprimé  avex success!!', {
+          icon: 'success',
+        });
+                            
+                            
+						
+							let xtable = $('#tableService').DataTable(); 
+							xtable.ajax.reload( null, false );
+						}else{
+							 swal('Error', 'le salle n a pas été supprimé!', 'error');
+						}
+     				
+					},
+					error: function (request, textStatus, errorThrown) {
+						swal("Error ", request.responseJSON.message, "error");
+					}
+				});
+     
+      } 
+    });
+			
+		});
+          // fin supprim salle
 
     $(document).on("click", ".btn-d", function() {
 

@@ -19,7 +19,7 @@ include 'header.html'; ?>
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped v_center" id="table-1">
+                            <table class="table table-striped v_center" id="tableDoc">
                                 <thead>
                                     <tr>
                                         <th class="text-center">
@@ -151,12 +151,19 @@ include 'header.html'; ?>
 </div>
 </div>
 
-<script src="js/page/bootstrap-modal.js"></script>
 
-<script src="assets/modules/datatables/datatables.min.js"></script>
-<script src="assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-<script src="assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
-<script src="assets/modules/jquery-ui/jquery-ui.min.js"></script>
-<script src="js/page/modules-datatables.js"></script>
 
 <?php include 'footer.html'; ?>
+<!-- js et ajax part -->
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#tableDoc').DataTable({
+
+
+
+    });
+
+
+   
+});
+ </script>

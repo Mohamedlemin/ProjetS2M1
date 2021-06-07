@@ -1,26 +1,33 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: May 25, 2021 at 10:14 PM
--- Server version: 5.7.32
--- PHP Version: 7.4.12
+-- Hôte : 127.0.0.1
+-- Généré le : lun. 07 juin 2021 à 23:17
+-- Version du serveur :  10.4.18-MariaDB
+-- Version de PHP : 8.0.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
--- Database: `ProjetM1S2`
+-- Base de données : `projetm1s2`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Admin`
+-- Structure de la table `admin`
 --
 
-CREATE TABLE `Admin` (
+CREATE TABLE `admin` (
   `id` int(11) NOT NULL,
   `nomComplet` varchar(25) NOT NULL,
   `username` varchar(30) NOT NULL,
@@ -28,22 +35,21 @@ CREATE TABLE `Admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `Admin`
+-- Déchargement des données de la table `admin`
 --
 
-INSERT INTO `Admin` (`id`, `nomComplet`, `username`, `password`) VALUES
+INSERT INTO `admin` (`id`, `nomComplet`, `username`, `password`) VALUES
 (1, 'MedLemin', 'Admin', 'Admin');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `docteur`
+-- Structure de la table `docteur`
 --
 
 CREATE TABLE `docteur` (
   `id` int(11) NOT NULL,
-  `nom` varchar(30) NOT NULL,
-  `prenom` varchar(30) NOT NULL,
+  `nomDoc` varchar(30) NOT NULL,
   `Numéro` int(25) NOT NULL,
   `adresse` varchar(30) NOT NULL,
   `tel` varchar(30) NOT NULL,
@@ -52,10 +58,17 @@ CREATE TABLE `docteur` (
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `docteur`
+--
+
+INSERT INTO `docteur` (`id`, `nomDoc`, `Numéro`, `adresse`, `tel`, `speciealite`, `username`, `password`) VALUES
+(1, 'ahmed SIDI', 123, 'KIF', '344566677', 'GENICOLOGUE', 'ahmed', '123');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `hospitaliser`
+-- Structure de la table `hospitaliser`
 --
 
 CREATE TABLE `hospitaliser` (
@@ -67,7 +80,7 @@ CREATE TABLE `hospitaliser` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `infirmier`
+-- Structure de la table `infirmier`
 --
 
 CREATE TABLE `infirmier` (
@@ -84,7 +97,7 @@ CREATE TABLE `infirmier` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `malade`
+-- Structure de la table `malade`
 --
 
 CREATE TABLE `malade` (
@@ -101,33 +114,48 @@ CREATE TABLE `malade` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `salle`
+-- Structure de la table `salle`
 --
 
 CREATE TABLE `salle` (
   `id` int(11) NOT NULL,
   `numero` int(11) NOT NULL,
   `nombreLits` int(11) NOT NULL,
-  `code-service` int(11) NOT NULL
+  `code` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `salle`
+--
+
+INSERT INTO `salle` (`id`, `numero`, `nombreLits`, `code`) VALUES
+(2, 12, 6, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `service`
+-- Structure de la table `service`
 --
 
 CREATE TABLE `service` (
   `code` int(11) NOT NULL,
-  `nom` int(11) NOT NULL,
-  `batiment` int(11) NOT NULL,
-  `directeur` int(11) NOT NULL
+  `directeur` int(11) NOT NULL,
+  `ids` int(11) NOT NULL,
+  `nom` varchar(50) NOT NULL,
+  `batiment` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `service`
+--
+
+INSERT INTO `service` (`code`, `directeur`, `ids`, `nom`, `batiment`) VALUES
+(4, 1, 1, 'GENICOLOQUE', 'CHG');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `soigner`
+-- Structure de la table `soigner`
 --
 
 CREATE TABLE `soigner` (
@@ -138,7 +166,7 @@ CREATE TABLE `soigner` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `surveiller`
+-- Structure de la table `surveiller`
 --
 
 CREATE TABLE `surveiller` (
@@ -147,23 +175,23 @@ CREATE TABLE `surveiller` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `Admin`
+-- Index pour la table `admin`
 --
-ALTER TABLE `Admin`
+ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `docteur`
+-- Index pour la table `docteur`
 --
 ALTER TABLE `docteur`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `hospitaliser`
+-- Index pour la table `hospitaliser`
 --
 ALTER TABLE `hospitaliser`
   ADD PRIMARY KEY (`id-salle`),
@@ -171,125 +199,130 @@ ALTER TABLE `hospitaliser`
   ADD KEY `numero-malade` (`numero-malade`);
 
 --
--- Indexes for table `infirmier`
+-- Index pour la table `infirmier`
 --
 ALTER TABLE `infirmier`
   ADD PRIMARY KEY (`numero`),
   ADD KEY `code` (`code`);
 
 --
--- Indexes for table `malade`
+-- Index pour la table `malade`
 --
 ALTER TABLE `malade`
   ADD PRIMARY KEY (`numero`);
 
 --
--- Indexes for table `salle`
+-- Index pour la table `salle`
 --
 ALTER TABLE `salle`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `code-service` (`code-service`);
+  ADD UNIQUE KEY `code` (`code`);
 
 --
--- Indexes for table `service`
+-- Index pour la table `service`
 --
 ALTER TABLE `service`
-  ADD PRIMARY KEY (`code`),
+  ADD PRIMARY KEY (`ids`),
   ADD KEY `directeur` (`directeur`);
 
 --
--- Indexes for table `soigner`
+-- Index pour la table `soigner`
 --
 ALTER TABLE `soigner`
   ADD KEY `numero-docteur` (`numero-docteur`),
   ADD KEY `numero-malade` (`numero-malade`);
 
 --
--- Indexes for table `surveiller`
+-- Index pour la table `surveiller`
 --
 ALTER TABLE `surveiller`
   ADD PRIMARY KEY (`id-salle`),
   ADD KEY `surveillant` (`surveillant`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `Admin`
+-- AUTO_INCREMENT pour la table `admin`
 --
-ALTER TABLE `Admin`
+ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `docteur`
+-- AUTO_INCREMENT pour la table `docteur`
 --
 ALTER TABLE `docteur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `infirmier`
+-- AUTO_INCREMENT pour la table `infirmier`
 --
 ALTER TABLE `infirmier`
   MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `malade`
+-- AUTO_INCREMENT pour la table `malade`
 --
 ALTER TABLE `malade`
   MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `salle`
+-- AUTO_INCREMENT pour la table `salle`
 --
 ALTER TABLE `salle`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `service`
+-- AUTO_INCREMENT pour la table `service`
 --
 ALTER TABLE `service`
-  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ids` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `hospitaliser`
+-- Contraintes pour la table `hospitaliser`
 --
 ALTER TABLE `hospitaliser`
   ADD CONSTRAINT `hospitaliser_ibfk_1` FOREIGN KEY (`id-salle`) REFERENCES `salle` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `hospitaliser_ibfk_2` FOREIGN KEY (`numero-malade`) REFERENCES `malade` (`numero`);
 
 --
--- Constraints for table `infirmier`
+-- Contraintes pour la table `infirmier`
 --
 ALTER TABLE `infirmier`
   ADD CONSTRAINT `infirmier_ibfk_1` FOREIGN KEY (`code`) REFERENCES `service` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `salle`
+-- Contraintes pour la table `salle`
 --
 ALTER TABLE `salle`
-  ADD CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`code-service`) REFERENCES `service` (`code`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `salle_ibfk_1` FOREIGN KEY (`code`) REFERENCES `service` (`ids`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `service`
+-- Contraintes pour la table `service`
 --
 ALTER TABLE `service`
   ADD CONSTRAINT `service_ibfk_1` FOREIGN KEY (`directeur`) REFERENCES `docteur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `soigner`
+-- Contraintes pour la table `soigner`
 --
 ALTER TABLE `soigner`
   ADD CONSTRAINT `soigner_ibfk_1` FOREIGN KEY (`numero-docteur`) REFERENCES `docteur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `soigner_ibfk_2` FOREIGN KEY (`numero-malade`) REFERENCES `malade` (`numero`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `surveiller`
+-- Contraintes pour la table `surveiller`
 --
 ALTER TABLE `surveiller`
   ADD CONSTRAINT `surveiller_ibfk_1` FOREIGN KEY (`id-salle`) REFERENCES `salle` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `surveiller_ibfk_2` FOREIGN KEY (`surveillant`) REFERENCES `infirmier` (`numero`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

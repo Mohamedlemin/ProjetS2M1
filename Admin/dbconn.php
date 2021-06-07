@@ -9,7 +9,7 @@ class dbconn
 	{
 		$user = 'root';
 		//Changer Le mot de passe ver ' ' si Vous Utilise XAMP
-		$pwd = 'root';
+		$pwd = '';
 		$dbname = 'ProjetM1S2';
 		try {
 			$this->dblocal = new PDO("mysql:host=localhost;dbname=" . $dbname . ";charset=latin1", $user, $pwd, array(PDO::ATTR_PERSISTENT => true));

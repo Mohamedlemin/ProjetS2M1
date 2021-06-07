@@ -69,7 +69,7 @@ $ps->execute();
                                             <div class="preview"> <i class="icon-user"></i>icon-user </div>
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table table-striped v_center" id="table-1">
+                                            <table class="table table-striped v_center" id="tablePat">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center">
@@ -140,6 +140,21 @@ $ps->execute();
         <!-- Template JS File -->
         <script src="js/scripts.js"></script>
         <script src="js/custom.js"></script>
+        <script src="jqueryTable.js"></script>
+<script src="dataTables.bootstrap4.min.js"></script>
+<!-- js et ajax part -->
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#tablePat').DataTable({
+
+
+
+    });
+
+
+   
+});
+ </script>
 </body>
 
 <!-- modules-datatables.html  Tue, 07 Jan 2020 03:39:02 GMT -->
