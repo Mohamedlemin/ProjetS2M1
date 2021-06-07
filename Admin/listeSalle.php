@@ -50,7 +50,7 @@
 
 
 
-     <!-- modalL ajouter salle -->
+     <!-- modal ajouter salle -->
 
      <div class="modal fade" id="modalAjoutSalle" tabindex="-1" role="dialog" aria-labelledby="formModal"
          aria-hidden="true">
