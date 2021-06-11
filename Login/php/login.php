@@ -8,10 +8,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mypassword = mysqli_real_escape_string($con, $_POST['password']);
 
     //requete dans la table Admin
-    $sql1 = "SELECT id FROM Admin WHERE username = '$myusername' and password = '$mypassword'";
+    $sql1 = "SELECT * FROM Admin WHERE username = '$myusername' and password = '$mypassword'";
     $result1 = mysqli_query($con, $sql1);
     while ($rows = mysqli_fetch_assoc($result1)) {
         $idsp = $rows['id'];
+        $nom = $rows['nomComplet'];
     }
 
     $count1 = mysqli_num_rows($result1);
@@ -33,7 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($count1 == 1) {
         //Admin
         $_SESSION['Admin_username'] = $myusername;
+        $_SESSION['Admin_password'] = $mypassword;
         $_SESSION['Admin_id'] =  $idsp;
+        $_SESSION['Admin_nomComplet'] =  $nom;
         header("location:../../Admin/index.php");
     } elseif ($count2 == 1) {
         //docteur

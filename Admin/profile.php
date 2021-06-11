@@ -26,7 +26,7 @@
                          </div>
                          <div class="profile-widget-description">
                              <div class="profile-widget-name">Admin <div class="text-muted d-inline font-weight-normal">
-                                     AHMED SIDI</div>
+                                     <?php echo ($_SESSION['Admin_nomComplet']); ?></div>
                              </div>
                              <div class="py-4" id="info">
                                  <p class="clearfix">
@@ -34,7 +34,7 @@
                                          Nom utilisateur
                                      </span>
                                      <span class="float-right text-muted">
-                                         Ahmed
+                                         <?php echo ($_SESSION['Admin_username']); ?>
                                      </span>
                                  </p>
                                  <p class="clearfix">
@@ -42,7 +42,7 @@
                                          Email
                                      </span>
                                      <span class="float-right text-muted">
-                                         Ahmed@gmail.com
+                                         <?php echo ($_SESSION['Admin_nomComplet']); ?>@gmail.com
                                      </span>
                                  </p>
                                  <p class="clearfix">
@@ -50,7 +50,7 @@
                                          mot de passe
                                      </span>
                                      <span class="float-right text-muted">
-                                         5687899
+                                         <?php echo ($_SESSION['Admin_password']); ?>
                                      </span>
                                  </p>
 
@@ -62,7 +62,7 @@
                  </div>
                  <div class="col-12 col-md-12 col-lg-7">
                      <div class="card">
-                         <form method="post" class="needs-validation" novalidate="">
+                         <form method="post" class="needs-validation" novalidate="" action="editProfil.php">
                              <div class="card-header">
                                  <h4>Edit Profile</h4>
                              </div>
@@ -70,32 +70,34 @@
                                  <div class="row">
                                      <div class="form-group col-md-6 col-12">
                                          <label>Nom Complet</label>
-                                         <input type="text" class="form-control" value="Michelle" required="">
-                                         <div class="invalid-feedback">Please fill in the first name</div>
+                                         <input type="text" name="nomc" class="form-control"
+                                             value=" <?php echo ($_SESSION['Admin_nomComplet']); ?>" required="">
+                                         <div class="invalid-feedbaack">Please fill in the first name</div>
                                      </div>
                                      <div class="form-group col-md-6 col-12">
                                          <label>Nom utilisateur</label>
-                                         <input type="text" class="form-control" value="Green" required="">
+                                         <input type="text" name="nom" class="form-control"
+                                             value="<?php echo ($_SESSION['Admin_username']); ?>" required="">
                                          <div class="invalid-feedback">Please fill in the last name</div>
                                      </div>
                                  </div>
                                  <div class="row">
                                      <div class="form-group col-md-7 col-12">
                                          <label>Email</label>
-                                         <input type="email" class="form-control" value="Michelle@Green.com"
+                                         <input type="email" class="form-control"
+                                             value=" <?php echo ($_SESSION['Admin_nomComplet']); ?>@gmail.com"
                                              required="">
                                          <div class="invalid-feedback">Please fill in the email</div>
                                      </div>
                                      <div class="form-group col-md-5 col-12">
                                          <label>Mot de passe</label>
-                                         <input type="tel" class="form-control" value="">
+                                         <input type="text" name="passe" class="form-control"
+                                             value="<?php echo ($_SESSION['Admin_password']); ?>">
                                      </div>
                                  </div>
-
-
                              </div>
                              <div class="card-footer text-right">
-                                 <button class="btn btn-primary">Save Changes</button>
+                                 <button type="submit" class="btn btn-primary" name="ajoute">Save Changes</button>
                              </div>
                          </form>
                      </div>
