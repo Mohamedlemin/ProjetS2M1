@@ -110,7 +110,7 @@
 
 
                          <button type="button" class="btn btn-outline-primary m-t-15 waves-effect"
-                             id="btn-save">Ajouter</button>
+                             id="btn-save">Enregistrer</button>
                          <button type="button" class="btn btn-outline-danger m-t-15 waves-effect">Annuler</button>
                      </form>
                  </div>

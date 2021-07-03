@@ -45,7 +45,7 @@ include 'header.html'; ?>
 </div>
 
 
-<div class="modal fade" id="modal-service" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
+<div class="modal fade" id="modal-salle" tabindex="-1" role="dialog" aria-labelledby="formModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -165,7 +165,7 @@ $(document).ready(function() {
 
     //Modele d'insertion Infirmier 
     $("#btn-add").click(function() {
-        $("#modal-service").modal("show");
+        $("#modal-salle").modal("show");
         $('.modal-title').text("Ajouter Infirmier ");
         $("#Nom").val("");
         $("#Prénom").val("");
@@ -201,7 +201,7 @@ $(document).ready(function() {
 
         }
 
-        $("#modal-service").modal("show");
+        $("#modal-salle").modal("show");
         setTimeout(function() {
             $("#txtname").focus()
         }, 1000);
@@ -306,7 +306,7 @@ $(document).ready(function() {
             success: function(data, textStatus, jqXHR) {
                 $resp = JSON.parse(data);
                 if ($resp['status'] == true) {
-                    $("#modal-service").modal("hide");
+                    $("#modal-salle").modal("hide");
                     iziToast.success({
                         title: 'Success!',
                         message: 'le service a eté ajouter avec success!',
@@ -356,7 +356,7 @@ $(document).ready(function() {
             success: function(data, textStatus, jqXHR) {
                 $resp = JSON.parse(data);
                 if ($resp['status'] == true) {
-                    $("#modal-service").modal("hide");
+                    $("#modal-salle").modal("hide");
                     iziToast.success({
                         title: 'Success!',
                         message: 'le service a eté modifier avec success!',

@@ -90,14 +90,17 @@ class sql extends dbconn
 	public function list_salle()
 	{
 		$db = $this->dblocal;
-		try {
-			$stmt = $db->prepare("select numero,nombreLits,nom from salle,service where salle.code=service.ids");
+		try
+		{
+			$stmt = $db->prepare("select id,numero,nombreLits,nom from salle,service where salle.code=service.ids");
 			$stmt->execute();
 			$stat[0] = true;
 			$stat[1] = "List customer";
 			$stat[2] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			return $stat;
-		} catch (PDOException $ex) {
+		}
+		catch(PDOException $ex)
+		{
 			$stat[0] = false;
 			$stat[1] = $ex->getMessage();
 			$stat[2] = [];
@@ -108,21 +111,75 @@ class sql extends dbconn
 	public function deleteSalle($id)
 	{
 		$db = $this->dblocal;
-		try {
-
-
+		try
+		{
+            
+        
 			$stmt = $db->prepare("delete from salle where id= :id");
-			$stmt->bindParam("ids", $id);
+			$stmt->bindParam("id",$id);
 			$stmt->execute();
 			$stat[0] = true;
 			$stat[1] = "Success delete customer";
 			return $stat;
-		} catch (PDOException $ex) {
+		}
+		catch(PDOException $ex)
+		{
 			$stat[0] = false;
 			$stat[1] = $ex->getMessage();
 			return $stat;
 		}
 	}
+	
+    
+    public function new_salle($sr,$nm,$nb)
+	{
+		$db = $this->dblocal;
+		try
+		{
+			$stmt = $db->prepare("insert into salle(numero,nombreLits,code) values (:numero,:nombreLits,:code)");
+			$stmt->bindParam("numero",$nm);
+			$stmt->bindParam("nombreLits",$nb);
+			$stmt->bindParam("code",$sr);
+			
+		
+			
+			$stmt->execute();
+			$stat[0] = true;
+			$stat[1] = "Success save customer";
+			return $stat;
+		}
+		catch(PDOException $ex)
+		{
+			$stat[0] = false;
+			$stat[1] = $ex->getMessage();
+			return $stat;
+		}
+	}
+	public function editSalle($id,$sr,$nm,$nb)
+	{
+		$db = $this->dblocal;
+		try
+		{
+			$stmt = $db->prepare("update salle set code=:code,nombreLits = :nombreLits, numero = :numero  where id = :id");
+			$stmt->bindParam("id",$id);
+			$stmt->bindParam("code",$sr);
+			$stmt->bindParam("nombreLits",$nb);
+			$stmt->bindParam("numero",$nm);
+
+            
+			$stmt->execute();
+			$stat[0] = true;
+			$stat[1] = "Success edit customer";
+			return $stat;
+		}
+		catch(PDOException $ex)
+		{
+			$stat[0] = false;
+			$stat[1] = $ex->getMessage();
+			return $stat;
+		}
+	}
+    
 
 	//-----------------Docteur-----------------
 	//Liste docteur

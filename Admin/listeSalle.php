@@ -29,12 +29,12 @@
                                  <table class="table table-striped v_center" id="tableSalle">
                                      <thead>
                                          <tr>
-                                             <th>numero</th>
-                                             <th>nombre lit</th>
-                                             <th>Service</th>
+                                             <th>NUMERO</th>
+                                             <th>NOMBRE LIT</th>
+                                             <th>SERVICE</th>
                                            
 
-                                             <th>Action</th>
+                                             <th>ACTION</th>
                                          </tr>
                                      </thead>
                        
@@ -45,6 +45,8 @@
                  </div>
              </div>
      </section>
+
+     
 
 
 
@@ -63,24 +65,47 @@
                      </button>
                  </div>
                  <div class="modal-body">
-                     <form id="service">
+                     <form>
                          <div class="form-row">
+                         <input type="hidden" id="crud" value="N">
+                          <input type="hidden" id="id">
                              <div class="form-group col-md-12">
                                  <label for="inputPassword4">Service</label>
-                                 <select id="inputState" class="form-control">
-                                     <option selected>Choose...</option>
-                                     <option>...</option>
+                                 <select id="service" class="form-control">
+                                    
+                      <?php 
+                           //la connexion avec la base de données
+           
+                            
+                $result = mysqli_query($con,"select ids,nom from service");
+					
+                              
+					while($row = mysqli_fetch_array($result)) {
+                        $id=$row['ids'];
+                         
+                           $var=$row['nom'];
+                              
+                          
+                    
+                          
+                    ?>
+                        <option value="<?php echo $id;?>"><?php echo $var;?></option>
+                       
+                    <?php
+                          }
+                              
+                    ?>
                                  </select>
                              </div>
                          </div>
                          <div class="form-row">
                              <div class="form-group col-md-6">
                                  <label for="inputEmail4">Numero</label>
-                                 <input type="text" class="form-control" id="inputEmail4" placeholder="nul">
+                                 <input type="text" class="form-control" id="num" placeholder="nul">
                              </div>
                              <div class="form-group col-md-6">
                                  <label for="inputPassword4">Nombre de lit</label>
-                                 <input type="text" class="form-control" id="inputPassword4" placeholder="Nombre lit">
+                                 <input type="text" class="form-control" id="nb" placeholder="Nombre lit">
                              </div>
 
                          </div>
@@ -138,12 +163,38 @@
             },
             { "data": null, render : function(data,type,row){
                    
-                   return "<button title='Edit' class=' btn btn-icon  icon-left btn-warning btn-edit'><i class='far fa-user'></i></button> <button title='view' class='btn btn-icon  icon-left btn-info btn-d'><i class='fas fa-eye'></i></button> <button  title='Delete' class='btn btn-icon icon-left btn-danger btn-hapus' data-toggle='modal'><i class='fas fa-trash-alt'></i></button> ";
+                   return "<button title='Edit' class=' btn btn-icon  icon-left btn-info btn-edit'><i class='fas fa-pencil-alt'></i>Modifier</button>  <button  title='Delete' class='btn btn-icon icon-left btn-danger btn-hapus' data-toggle='modal'><i class='fas fa-trash-alt'></i>Supprimer</button> ";
                } 		}
         ]
 
 
     });
+
+
+//ajout salle
+    $("#btn_add").click(function() {
+        $("#modalAjoutSalle").modal("show");
+        $('.modal-title').text("Ajouter Salle");
+        $("#service").val("");
+		$("#num").val("");
+		$("#nb").val("");
+        $("#crud").val("N");
+       
+
+    });
+    $("#btn-save").click(function(){
+        if($("#crud").val() =='N'){
+			
+           ajoutSalle($("#service option:selected").attr("value"),$("#num").val(),$("#nb").val());
+        }
+        else{
+					
+                    editSalle($("#id").val(),$("#service option:selected").attr("value"),$("#num").val(),$("#nb").val());
+                
+            }
+                
+});
+//fin ajout salle
 
      //supprimer salle
 
@@ -158,7 +209,7 @@
 			 swal({
     title: 'Vous etes sure?',
     text: 'Voulez-vous supprimer cette salle!',
-    icon: 'error',
+    icon: 'warning',
     buttons: true,
     dangerMode: true,
   })
@@ -183,7 +234,7 @@
                             
                             
 						
-							let xtable = $('#tableService').DataTable(); 
+							let xtable = $('#tableSalle').DataTable(); 
 							xtable.ajax.reload( null, false );
 						}else{
 							 swal('Error', 'le salle n a pas été supprimé!', 'error');
@@ -201,16 +252,131 @@
 		});
           // fin supprim salle
 
-    $(document).on("click", ".btn-d", function() {
+           //debut edit salle
 
-        window.location.href = "detailSalle.php";
+    $(document).on("click", ".btn-edit", function() {
+        var current_row = $(this).parents('tr'); 
+			if (current_row.hasClass('child')) { 
+				current_row = current_row.prev(); 
+			}
+			var table = $('#tableSalle').DataTable(); 
+			var data = table.row( current_row).data();
+            if( $("input[id=service]").val()==data.nom){
+                  $("input[id=service]").prop("checked",true);
+                
+                
+            }
+            $("#id").val(data.id);
+			$("#num").val(data.numero);
+			$("#nb").val(data.nombreLits);
+            $("#modalAjoutSalle").modal("show");
+        $('.modal-title').text("Modifier Salle");
+        $("#crud").val("E");
 
-    });
+
+});
+
+//fin edir salle
 
 
-    $("#btn_add").click(function() {
-        $("#modalAjoutSalle").modal("show");
+         
 
-    });
+    
+        //fonction ajout Salle
+		function ajoutSalle(s,nm,nb){
+			let ajax = {
+				method: "new_salle",
+				sr:s,
+                nm:nm,
+				nb:nb
+               
+                }
+			$.ajax({
+				url: "customer.php",
+				type: "POST",
+				data: ajax,
+				success: function(data, textStatus, jqXHR)
+				{
+					$resp = JSON.parse(data);
+					if($resp['status'] == true){
+						$("#modalAjoutSalle").modal("hide");
+                          iziToast.success({
+    title: 'Success!',
+    message: 'la salle a eté ajouter avec success!',
+    position: 'topRight'
+  });
+						let xtable = $('#tableSalle').DataTable(); 
+						xtable.ajax.reload( null, false );
+                       
+          
+        
+						
+					}else{
+						  iziToast.error({
+    title: 'Erreur!',
+    message: 'la salle n a pas eté ajouter avec success!',
+    position: 'topRight'
+  });
+					}
+				},
+				error: function (request, textStatus, errorThrown) {
+					swal("Error ", request.responseJSON.message, "error");
+				}
+			});
+		}
+         // fin fonction ajout service
+           //fonction MODIF Salle
+
+           function editSalle(id,s,nm,nb){
+						let ajax = {
+				method: "editSalle",
+                id:id,
+				sr:s,
+                nm:nm,
+				nb:nb
+				           
+               
+                
+
+			}
+            $.ajax({
+				url: "customer.php",
+				type: "POST",
+				data: ajax,
+				success: function(data, textStatus, jqXHR)
+				{
+					$resp = JSON.parse(data);
+					if($resp['status'] == true){
+						$("#modalAjoutSalle").modal("hide");
+                          iziToast.success({
+    title: 'Success!',
+    message: 'le salle a eté modifier avec success!',
+    position: 'topRight'
+  });
+						let xtable = $('#tableSalle').DataTable(); 
+						xtable.ajax.reload( null, false );
+                       
+          
+        
+						
+					}else{
+						  iziToast.warning({
+    title: 'Erreur!',
+    message: 'le salle n a pas eté modifier avec success!',
+    position: 'topRight'
+  });
+					}
+				},
+				error: function (request, textStatus, errorThrown) {
+					swal("Error ", request.responseJSON.message, "error");
+				}
+			});
+		}
+
+
+
+       
+
+   
 });
  </script>
