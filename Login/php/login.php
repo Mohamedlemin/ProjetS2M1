@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //docteur
         $_SESSION['Docteur_username'] = $myusername;
         $_SESSION['Docteur_id'] = $id;
-        header("location:../../Docteur/index.html");
+        header("location:../../Docteur/index.php");
     } else {
         //$error = "Your Login Name or Password is invalid";
         //echo $error;

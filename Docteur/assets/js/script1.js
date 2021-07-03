@@ -696,10 +696,10 @@ $(function () {
   //add default class on body tag
   jQuery("body").addClass("light");
   jQuery("body").addClass("light-sidebar");
-  jQuery("body").addClass("theme-white");
+  jQuery("body").addClass("theme-purple");
   // set theme default color
   $(".choose-theme li").removeClass("active");
-  $(".choose-theme li[title|='']").addClass("active");
+  $(".choose-theme li[title|='white']").addClass("active");
   //set default dark or light layout(1=light, 2=dark)
   $(".select-layout[value|='1']").prop("checked", true);
   //set default dark or light sidebar(1=light, 2=dark)
