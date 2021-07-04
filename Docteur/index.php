@@ -1,8 +1,13 @@
-<?php  include 'header.html'; ?>
+<?php
+include('Docteur_Session.php');
 
-  <!-- Start app main Content -->
-       
-            
-                
-         
-<?php  include 'footer.html'; ?>
+include 'header.html';
+
+?>
+
+<!-- Start app main Content -->
+
+
+
+
+<?php include 'footer.html'; ?>
