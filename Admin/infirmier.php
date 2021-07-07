@@ -64,7 +64,7 @@ include 'header.html'; ?>
                         </div>
                         <div class="form-group col-md-6">
                             <label>Prénom </label>
-                            <input type="email" class="form-control" id="Prénom" name="Prénom" required="">
+                            <input type="email" class="form-control" id="Prenom" name="Prénom" required="">
                         </div>
                     </div>
                     <div class="form-row">
@@ -74,7 +74,7 @@ include 'header.html'; ?>
                         </div>
                         <div class="form-group col-md-6">
                             <label>Téléphone </label>
-                            <input type="text" id="tel" name="tel" class="form-control">
+                            <input type="number" id="tel" name="tel" class="form-control">
 
                         </div>
                     </div>
@@ -85,12 +85,40 @@ include 'header.html'; ?>
                         </div>
                         <div class="form-group col-md-6">
                             <label>CODE</label>
-                            <input type="text" id="code" name="code" class="form-control">
+                            <input type="number" id="code" name="code" class="form-control">
                         </div>
 
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
+                                 <label for="inputPassword4">Service</label>
+                                 <select id="service" class="form-control">
+                                    
+                      <?php 
+                           //la connexion avec la base de données
+           
+                            
+                $result = mysqli_query($con,"select ids,nom from service");
+					
+                              
+					while($row = mysqli_fetch_array($result)) {
+                        $id=$row['ids'];
+                         
+                           $var=$row['nom'];
+                              
+                          
+                    
+                          
+                    ?>
+                        <option value="<?php echo $id;?>"><?php echo $var;?></option>
+                       
+                    <?php
+                          }
+                              
+                    ?>
+                                 </select>
+                             </div>
+                        <div class="form-group col-md-6">
                             <label>Salaire </label>
                             <input type="text" id="Salaire" name="Salaire" class="form-control">
                         </div>
@@ -174,6 +202,7 @@ $(document).ready(function() {
         $("#Rotation").val("");
         $("#Salaire").val("");
         $("#code").val("");
+        $("#service").val("");
         $("#crud").val("N");
 
     });
@@ -188,15 +217,15 @@ $(document).ready(function() {
         var data = table.row(current_row).data();
         $("#id").val(data.id);
         $("#Nom").val(data.nom);
-        $("#Prénom").val(data.prenom);
+        $("#Prenom").val(data.prenom);
         $("#Adresse").val(data.adresse);
         $("#tel").val(data.tel);
         $("#Rotation").val(data.rotation);
         $("#Salaire").val(data.salaire);
         $("#code").val(data.code);
 
-        if ($("input[id=dr]").val() == data.id) {
-            $("input[id=dr]").prop("checked", true);
+        if ($("input[id=service]").val() == data.id_service) {
+            $("input[id=service]").prop("checked", true);
 
 
         }
@@ -217,15 +246,15 @@ $(document).ready(function() {
 
 
 
-            ajoutInf($("#Nom").val(), $("#Prénom").val(), $("#Adresse").val(), $("#tel").val(),
-                $("#Rotation").val(), $("#Salaire").val(), $("#code").val());
+            ajoutInf($("#Nom").val(), $("#Prenom").val(), $("#Adresse").val(), $("#tel").val(),
+                $("#Rotation").val(), $("#Salaire").val(), $("#code").val(),$("#service option:selected").attr("value"));
 
 
         } else {
 
-            editInf($("#id").val(), $("#Nom").val(), $("#Prénom").val(), $("#Adresse").val(),
+            editInf($("#id").val(), $("#Nom").val(), $("#Prenom").val(), $("#Adresse").val(),
 
-                $("#tel").val(), $("#Rotation").val(), $("#Salaire").val(), $("#code").val());
+                $("#tel").val(), $("#Rotation").val(), $("#Salaire").val(), $("#code").val(),$("#service option:selected").attr("value"));
 
 
         }
@@ -262,7 +291,7 @@ $(document).ready(function() {
 
                             $resp = JSON.parse(data);
                             if ($resp['status'] == true) {
-                                swal('Success! le service  a été supprimé  avex success!!', {
+                                swal('Success! infirmier a été supprimé  avex success!!', {
                                     icon: 'success',
                                 });
 
@@ -271,7 +300,7 @@ $(document).ready(function() {
                                 let xtable = $('#tableInf').DataTable();
                                 xtable.ajax.reload(null, false);
                             } else {
-                                swal('Error', 'le service n a pas été supprimé!',
+                                swal('Error', 'infirmier n a pas été supprimé!',
                                     'error');
                             }
 
@@ -288,16 +317,17 @@ $(document).ready(function() {
     // fin supprim Infirmier
 
     //fonction ajout Infirmier
-    function ajoutInf(Nom, Prénom, Adresse, tel, Rotation, Salaire, code) {
+    function ajoutInf(Nom, Prenom, Adresse, tel, Rotation, Salaire, code,serv) {
         let ajax = {
             method: "new_Inf",
             Nom: Nom,
-            Prénom: Prénom,
+            Prenom: Prenom,
             Adresse: Adresse,
             tel: tel,
             Rotation: Rotation,
             Salaire: Salaire,
-            code: code
+            code: code,
+            serv:serv
         }
         $.ajax({
             url: "customer.php",
@@ -309,7 +339,7 @@ $(document).ready(function() {
                     $("#modal-salle").modal("hide");
                     iziToast.success({
                         title: 'Success!',
-                        message: 'le service a eté ajouter avec success!',
+                        message: 'infirmier a eté ajouter avec success!',
                         position: 'topRight'
                     });
                     let xtable = $('#tableInf').DataTable();
@@ -321,7 +351,7 @@ $(document).ready(function() {
                 } else {
                     iziToast.warning({
                         title: 'Erreur!',
-                        message: 'le service n a pas eté ajouter avec success!',
+                        message: 'infirmier n a pas eté ajouter avec success!',
                         position: 'topRight'
                     });
                 }
@@ -335,17 +365,18 @@ $(document).ready(function() {
 
     //fonction MODIF Infirmier
 
-    function editInf(id, Nom, Numéro, Adresse, tel, speciealite, Salaire, code) {
+    function editInf(id,Nom, Prenom, Adresse, tel, Rotation, Salaire, code,serv) {
         let ajax = {
             method: "editInf",
             id: id,
             Nom: Nom,
-            Prénom: Prénom,
+            Prenom: Prenom,
             Adresse: Adresse,
             tel: tel,
             Rotation: Rotation,
             Salaire: Salaire,
-            code: code
+            code: code,
+            serv:serv
 
 
         }
@@ -359,7 +390,7 @@ $(document).ready(function() {
                     $("#modal-salle").modal("hide");
                     iziToast.success({
                         title: 'Success!',
-                        message: 'le service a eté modifier avec success!',
+                        message: 'infirmier a eté modifier avec success!',
                         position: 'topRight'
                     });
                     let xtable = $('#tableInf').DataTable();
@@ -371,7 +402,7 @@ $(document).ready(function() {
                 } else {
                     iziToast.warning({
                         title: 'Erreur!',
-                        message: 'le service n a pas eté modifier avec success!',
+                        message: 'infirmier n a pas eté modifier avec success!',
                         position: 'topRight'
                     });
                 }

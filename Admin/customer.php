@@ -118,43 +118,45 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH
 		$retval['data'] = $list[2];
 		echo json_encode($retval);
 	}
-	//ADD Inf
-	if ($method == 'new_Inf') {
+//ADD Inf
+if ($method == 'new_Inf') {
 
-		$Nom = $_POST['Nom'];
-		$Prénom = $_POST['Prénom'];
-		$Adresse = $_POST['Adresse'];
-		$tel = $_POST['tel'];
-		$Rotation = $_POST['Rotation'];
-		$Salaire = $_POST['Salaire'];
-		$Code = $_POST['Code'];
-
-
-
-		$new = $dtbs->new_Inf($Nom, $Prénom, $Adresse, $tel, $Rotation, $Salaire, $Code);
-		$retval['status'] = $new[0];
-		$retval['message'] = $new[1];
-		echo json_encode($retval);
-	}
-	//Edit Inf
-	if ($method == 'editInf') {
-		$id = $_POST['id'];
-		$Nom = $_POST['Nom'];
-		$Prénom = $_POST['Prénom'];
-		$Adresse = $_POST['Adresse'];
-		$tel = $_POST['tel'];
-		$Rotation = $_POST['Rotation'];
-		$Salaire = $_POST['Salaire'];
-		$Code = $_POST['Code'];
+	$Nom = $_POST['Nom'];
+	$Prénom = $_POST['Prenom'];
+	$Adresse = $_POST['Adresse'];
+	$tel = $_POST['tel'];
+	$Rotation = $_POST['Rotation'];
+	$Salaire = $_POST['Salaire'];
+	$Code = $_POST['code'];
+	$serv = $_POST['serv'];
 
 
 
+	$new = $dtbs->new_Inf($Nom, $Prénom, $Adresse, $tel, $Rotation, $Salaire, $Code,$serv);
+	$retval['status'] = $new[0];
+	$retval['message'] = $new[1];
+	echo json_encode($retval);
+}
+//Edit Inf
+if ($method == 'editInf') {
+	$id = $_POST['id'];
+	$Nom = $_POST['Nom'];
+	$Prénom = $_POST['Prenom'];
+	$Adresse = $_POST['Adresse'];
+	$tel = $_POST['tel'];
+	$Rotation = $_POST['Rotation'];
+	$Salaire = $_POST['Salaire'];
+	$Code = $_POST['code'];
+	$serv = $_POST['serv'];
 
-		$edit = $dtbs->editInf($id, $Nom, $Prénom, $Adresse, $tel, $Rotation, $Salaire, $Code);
-		$retval['status'] = $edit[0];
-		$retval['message'] = $edit[1];
-		echo json_encode($retval);
-	}
+
+
+
+	$edit = $dtbs->editInf($id,$Nom, $Prénom, $Adresse, $tel, $Rotation, $Salaire, $Code,$serv);
+	$retval['status'] = $edit[0];
+	$retval['message'] = $edit[1];
+	echo json_encode($retval);
+}
 	//delete Inf
 	if ($method == 'deleteInf') {
 		$id = $_POST['id_cust'];

@@ -289,11 +289,11 @@ class sql extends dbconn
 			return $stat;
 		}
 	}
-	public function new_Inf($nom, $prenom, $adresse, $tel, $rotation, $salaire, $code)
+	public function new_Inf($nom, $prenom, $adresse, $tel, $rotation, $salaire, $code,$serv)
 	{
 		$db = $this->dblocal;
 		try {
-			$stmt = $db->prepare("insert into infirmier(nom,prenom,adresse,tel,rotation,salaire,code) values (:nom,:prenom,:adresse,:tel,:rotation,:salaire,:code)");
+			$stmt = $db->prepare("insert into infirmier(nom,prenom,adresse,tel,rotation,salaire,code,id_service) values (:nom,:prenom,:adresse,:tel,:rotation,:salaire,:code,:id_service)");
 			$stmt->bindParam("nom", $nom);
 			$stmt->bindParam("prenom", $prenom);
 			$stmt->bindParam("adresse", $adresse);
@@ -301,6 +301,7 @@ class sql extends dbconn
 			$stmt->bindParam("rotation", $rotation);
 			$stmt->bindParam("salaire", $salaire);
 			$stmt->bindParam("code", $code);
+			$stmt->bindParam("id_service", $serv);
 
 
 
@@ -314,12 +315,12 @@ class sql extends dbconn
 			return $stat;
 		}
 	}
-	public function editInf($id, $nom, $prenom, $adresse, $tel, $rotation, $salaire, $code)
+	public function editInf($id,$nom, $prenom, $adresse, $tel, $rotation, $salaire, $code,$serv)
 	{
 		$db = $this->dblocal;
 		try {
 			$stmt = $db->prepare("UPDATE `infirmier` SET  nom=:nom ,prenom = :prenom, adresse = :adresse, tel = :tel, 
-			rotation = :rotation, salaire= :salaire ,code= :code where `infirmier`.`id` = :id");
+			rotation = :rotation, salaire= :salaire ,code= :code,id_service= :id_service where `infirmier`.`id` = :id");
 			$stmt->bindParam("id", $id);
 			$stmt->bindParam("nom", $nom);
 			$stmt->bindParam("prenom", $prenom);
@@ -328,6 +329,7 @@ class sql extends dbconn
 			$stmt->bindParam("rotation", $rotation);
 			$stmt->bindParam("salaire", $salaire);
 			$stmt->bindParam("code", $code);
+			$stmt->bindParam("id_service", $serv);
 
 			$stmt->execute();
 			$stat[0] = true;
