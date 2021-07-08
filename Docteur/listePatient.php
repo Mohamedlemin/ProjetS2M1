@@ -1,7 +1,7 @@
 <?php  
 
 include('Docteur_Session.php');
-include 'header.html';
+include 'header.php';
 
 
 
@@ -127,11 +127,7 @@ include 'header.html';
                             <label>SALLE</label>
                            <select class="form-control" id="salle">
                            <?php
-                                        //la connexion avec la base de données
-                                        $con = new mysqli("localhost", "root", "root", "ProjetM1S2");
-                                   if ($con->connect_error) {
-                                           die("eurreur de type" . $con->connect_error);
-                                       } else "OK";
+                                      
                                       
 
 
@@ -264,6 +260,24 @@ include 'header.html';
 <?php  include 'footer.html'; ?>
              <script type="text/javascript">
 		$(document).ready(function(){
+
+      setInterval(function(){
+                    
+                  
+                  
+                    $("#bel").load("load.php");
+                    $(".dropdown-list-content").load("load1.php");
+                
+             
+              
+                
+              
+                
+               
+            },1000);
+            $('#table-urgence').DataTable({
+           
+         });
 
       	$('#tablepatient').DataTable({
                 "autoWidth": false,

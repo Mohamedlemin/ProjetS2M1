@@ -1,5 +1,5 @@
 <?php include 'Docteur_Session.php';?>
-<?php  include 'header.html'; ?>
+<?php  include 'header.php'; ?>
 <?php  $id=$_GET['Mname'];
 $idp=$_SESSION['Docteur_id']; ?>
 <!--conection base d-->
@@ -205,5 +205,27 @@ $ps5->execute();
      
                             </div>        
 <?php  include 'footer.html'; ?>
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('#tableservient').DataTable({
+            
+          });
+
+          $('#tablepat').DataTable({
+            
+          });
+             
+         
+  
+             
+         
+ 
+          });
+
+          </script>
+
+
+
              
        

@@ -1,5 +1,5 @@
 <?php include 'Docteur_Session.php'; ?>
-<?php include 'header.html'; ?>
+<?php include 'header.php'; ?>
 <?php require_once("conee.php");
 $id = $_SESSION['Docteur_id'];
 $req = "SELECT * FROM salle join service where salle.code =service.ids and service.directeur like $id";
@@ -181,6 +181,24 @@ $(document).ready(function() {
 <?php include 'footer.html'; ?>
 <script type="text/javascript">
 $(document).ready(function() {
+
+    setInterval(function(){
+                    
+                  
+                  
+                    $("#bel").load("load.php");
+                    $(".dropdown-list-content").load("load1.php");
+                
+             
+              
+                
+              
+                
+               
+            },1000);
+            $('#table-urgence').DataTable({
+           
+         });
     $('#tablepatient').DataTable({
         "info": false,
         "autoWidth": false,

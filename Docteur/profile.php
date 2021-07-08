@@ -1,7 +1,7 @@
 <?php
 include('Docteur_Session.php');
 
-include 'header.html'; ?>
+include 'header.php'; ?>
 
 
 <!-- Start app main Content -->

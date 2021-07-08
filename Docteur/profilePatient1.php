@@ -2,8 +2,11 @@
 <?php  
 
 include('Docteur_Session.php');
-include 'header.php'; 
+include 'header.php';
 $idp=$_GET["id"];
+$sql3= "update urgence set status='oui' where id_malade like '$idp'; ";
+$resultat3 = mysqli_query($con,$sql3);
+
 
 
 ?>
