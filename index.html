@@ -1,82 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- auth-login.html  21 Nov 2019 03:49:32 GMT HELOO -->
-
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Authentification </title>
-    <!-- General CSS Files -->
-    <link rel="stylesheet" href="Login/assets/css/app.min.css">
-    <link rel="stylesheet" href="Login/assets/bundles/bootstrap-social/bootstrap-social.css">
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="Login/assets/css/style.css">
-    <link rel="stylesheet" href="Login/assets/css/components.css">
-    <!-- Custom style CSS -->
-    <link rel="stylesheet" href="Login/assets/css/custom.css">
-    <link rel='shortcut icon' type='image/x-icon' href='Login/assets/img/favicon.ico' />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="Bienvenue/style.css" />
+    <link rel="stylesheet" type="text/css" href="Bienvenue/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Bienvenue/assets/css/templatemo-softy-pinko.css">
+
+
+
+    <title></title>
 </head>
 
 <body>
-    <div class="loader"></div>
-    <div id="app">
-        <section class="section">
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h4>Login</h4>
-                            </div>
-                            <div class="card-body">
-                                <form method="POST" action="Login/php/login.php" class="needs-validation" novalidate="">
-                                    <div class="form-group">
-                                        <label for="email">Username</label>
-                                        <input id="email" type="text" class="form-control" name="username" tabindex="1" required autofocus>
-                                        <div class="invalid-feedback">
-                                            Nom d'utilisateurs
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="d-block">
-                                            <label for="password" class="control-label">Mot de passe</label>
-                                        </div>
-                                        <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                                        <div class="invalid-feedback">
-                                            please fill in your password
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
+    <div class="container1">
+        <div class="forms-container">
+            <div class="signin-signup">
 
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                                            Login
-                                        </button>
-                                    </div>
-                                </form>
 
-                            </div>
-                        </div>
+
+
+
+                <form method="POST" action="Login/php/login.php" class="needs-validation" novalidate="">
+                    <img src="Bienvenue/img/GH.svg" class="lo" alt="" />
+
+
+                    <h2 class="title">S'identifier </h2>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i> <input type="text" placeholder="Nom d'utilisateur" name="username" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Mot de passe" name="password" />
+                    </div>
+                    <input type="submit" value="Connecter" class="btnn solid" />
+                    <br>
+                    <br>
+
+
+
+                </form>
+
+
+
+
+            </div>
+
+
+            <div class="panels-container1">
+                <div class="panel1 left-panel1">
+                    <div class="content">
+
+                        <img src="Bienvenue/img/GHT.svg" class="lo" alt="" />
+
 
                     </div>
+                    <img src="Bienvenue/img/log.svg" class="image" alt="" />
+
+
+
+
                 </div>
+
+
             </div>
-        </section>
+        </div>
     </div>
-    <!-- General JS Scripts -->
-    <script src="Login/assets/js/app.min.js"></script>
-    <!-- JS Libraies -->
-    <!-- Page Specific JS File -->
-    <!-- Template JS File -->
-    <script src="Login/assets/js/scripts.js"></script>
-    <!-- Custom JS File -->
-    <script src="Login/assets/js/custom.js"></script>
+    </div>
+
+
+
+
+    <script src="Bienvenue/app.js"></script>
 </body>
+<!-- JQuery -->
 
-
-<!-- auth-login.html  21 Nov 2019 03:49:32 GMT -->
+</html>
 
 </html>

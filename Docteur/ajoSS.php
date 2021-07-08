@@ -1,0 +1,12 @@
+<?php require_once("conee.php");
+$Num=$_POST['Num'];
+$Numl=$_POST['Numl'];
+$ps3=$pdo->prepare("SELECT * FROM infirmier WHERE infirmier.Nom like '%$Numl%'");
+$ps3->execute();
+$ligne3=$ps3->fetch(PDO::FETCH_ASSOC);
+$NBE=$ligne3['id'];
+$req="INSERT INTO surveiller(`id-salle`,surveillant) VALUES(?,?)"; 
+$ps=$pdo->prepare($req);
+$params=array($Num,$NBE);
+$ps->execute($params);
+header("location:liste de salle.php");

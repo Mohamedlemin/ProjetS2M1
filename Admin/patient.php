@@ -2,14 +2,21 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<!--conexion a la base de donne-->
-<?php /*require_once("conee.php");
-$req = "SELECT * FROM malade join hospitaliser where malade.numero=hospitaliser.numeromalade";
+<?php
+try {
+    $strConnection = 'mysql:host=localhost;dbname=projetm1s2';
+    $pdo = new PDO($strConnection, 'root', 'root');
+} catch (PDOException $e) {
+    $msg = 'ERREUR PDO dans ' . $e->getMessage();
+    die($msg);
+}
+?>
+<?php
+$req = "SELECT * FROM malade join hospitaliser where malade.id=hospitaliser.num_malade";
 $ps = $pdo->prepare($req);
 $ps->execute();
-*/ ?>
-<!-- Start app main Content -->
-<!-- modules-datatables.html  Tue, 07 Jan 2020 03:38:57 GMT -->
+?>
+
 
 <head>
     <meta charset="UTF-8">
@@ -31,7 +38,7 @@ $ps->execute();
 </head>
 
 <body class="layout-4">
-    <!-- Page Loader -->
+
     <div class="page-loader-wrapper">
         <span class="loader"><span class="loader-inner"></span></span>
     </div>
@@ -40,12 +47,6 @@ $ps->execute();
         <div class="main-wrapper main-wrapper-1">
 
 
-            <!-- Start app top navbar -->
-
-
-            <!-- Start main left sidebar menu -->
-
-            <!-- Start app main Content -->
             <?php include 'header.html'; ?>
             <div class="main-content">
                 <section class="section">
@@ -66,7 +67,7 @@ $ps->execute();
 
                                     <div class="card-body">
                                         <div class="col-sm-6 col-md-4 col-lg-3">
-                                            <div class="preview"> <i class="icon-user"></i>icon-user </div>
+                                            <div class="preview"> </div>
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table table-striped v_center" id="tablePat">
@@ -76,7 +77,7 @@ $ps->execute();
                                                             NUM
                                                         </th>
                                                         <th>Name</th>
-                                                        <th>Prenom</th>
+                                                        <th>Age</th>
                                                         <th>adresse</th>
                                                         <th>telphone</th>
                                                         <th>SALLE</th>
@@ -85,30 +86,30 @@ $ps->execute();
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <!--
-                                            <?php // while ($et=$ps->fetch()){ 
-                                            ?>
-                                                <tr>
-                                                <td>
-                                                <?php //echo($et['numero']) 
-                                                ?>
-                                                </td>
-                                                <td><?php //echo($et['nom']) 
-                                                    ?></td>
-                                                <td><?php //echo($et['prenom']) 
-                                                    ?></td>
-                                                <td><?php //echo($et['adresse']) 
-                                                    ?></td>
-	                                            <td><?php //echo($et['tel']) 
-                                                    ?></td>
-                                                <td>A<?php //echo($et['idsalle']) 
-                                                        ?></td>
-                                                <td>L<?php //echo($et['numlit']) 
-                                                        ?></td>
-                                                
-                                                </tr>
-                                                          <?php //}
-                                                            ?> -->
+
+                                                    <?php while ($et = $ps->fetch()) {
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <?php echo ($et['numero'])
+                                                                ?>
+                                                        </td>
+                                                        <td><?php echo ($et['nom'])
+                                                                ?></td>
+                                                        <td><?php echo ($et['age'])
+                                                                ?></td>
+                                                        <td><?php echo ($et['adresse'])
+                                                                ?></td>
+                                                        <td><?php echo ($et['tel'])
+                                                                ?></td>
+                                                        <td>A<?php echo ($et['id_salle'])
+                                                                    ?></td>
+                                                        <td>L<?php echo ($et['numlit'])
+                                                                    ?></td>
+
+                                                    </tr>
+                                                    <?php }
+                                                    ?>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -119,15 +120,15 @@ $ps->execute();
 
                     </div>
 
-                    <!-- Start app Footer part -->
-                    <?php include 'footer.html'; ?>
+
             </div>
         </div>
 
         <!-- General JS Scripts -->
         <script src="assets/bundles/lib.vendor.bundle.js"></script>
         <script src="js/CodiePie.js"></script>
-
+        <!-- Start app Footer part -->
+        <?php include 'footer.html'; ?>
         <!-- JS Libraies -->
         <script src="assets/modules/datatables/datatables.min.js"></script>
         <script src="assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
@@ -141,20 +142,20 @@ $ps->execute();
         <script src="js/scripts.js"></script>
         <script src="js/custom.js"></script>
         <script src="jqueryTable.js"></script>
-<script src="dataTables.bootstrap4.min.js"></script>
-<!-- js et ajax part -->
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#tablePat').DataTable({
+        <script src="dataTables.bootstrap4.min.js"></script>
+        <!-- js et ajax part -->
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $('#tablePat').DataTable({
 
 
 
-    });
+            });
 
 
-   
-});
- </script>
+
+        });
+        </script>
 </body>
 
 <!-- modules-datatables.html  Tue, 07 Jan 2020 03:39:02 GMT -->

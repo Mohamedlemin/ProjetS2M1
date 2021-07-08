@@ -90,34 +90,34 @@ include 'header.html'; ?>
 
                     </div>
                     <div class="form-row">
-                    <div class="form-group col-md-6">
-                                 <label for="inputPassword4">Service</label>
-                                 <select id="service" class="form-control">
-                                    
-                      <?php 
-                           //la connexion avec la base de données
-           
-                            
-                $result = mysqli_query($con,"select ids,nom from service");
-					
-                              
-					while($row = mysqli_fetch_array($result)) {
-                        $id=$row['ids'];
-                         
-                           $var=$row['nom'];
-                              
-                          
-                    
-                          
-                    ?>
-                        <option value="<?php echo $id;?>"><?php echo $var;?></option>
-                       
-                    <?php
-                          }
-                              
-                    ?>
-                                 </select>
-                             </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Service</label>
+                            <select id="service" class="form-control">
+
+                                <?php
+                                //la connexion avec la base de données
+
+
+                                $result = mysqli_query($con, "select ids,nom from service");
+
+
+                                while ($row = mysqli_fetch_array($result)) {
+                                    $id = $row['ids'];
+
+                                    $var = $row['nom'];
+
+
+
+
+                                ?>
+                                <option value="<?php echo $id; ?>"><?php echo $var; ?></option>
+
+                                <?php
+                                }
+
+                                ?>
+                            </select>
+                        </div>
                         <div class="form-group col-md-6">
                             <label>Salaire </label>
                             <input type="text" id="Salaire" name="Salaire" class="form-control">
@@ -247,14 +247,16 @@ $(document).ready(function() {
 
 
             ajoutInf($("#Nom").val(), $("#Prenom").val(), $("#Adresse").val(), $("#tel").val(),
-                $("#Rotation").val(), $("#Salaire").val(), $("#code").val(),$("#service option:selected").attr("value"));
+                $("#Rotation").val(), $("#Salaire").val(), $("#code").val(), $(
+                    "#service option:selected").attr("value"));
 
 
         } else {
 
             editInf($("#id").val(), $("#Nom").val(), $("#Prenom").val(), $("#Adresse").val(),
 
-                $("#tel").val(), $("#Rotation").val(), $("#Salaire").val(), $("#code").val(),$("#service option:selected").attr("value"));
+                $("#tel").val(), $("#Rotation").val(), $("#Salaire").val(), $("#code").val(), $(
+                    "#service option:selected").attr("value"));
 
 
         }
@@ -317,7 +319,7 @@ $(document).ready(function() {
     // fin supprim Infirmier
 
     //fonction ajout Infirmier
-    function ajoutInf(Nom, Prenom, Adresse, tel, Rotation, Salaire, code,serv) {
+    function ajoutInf(Nom, Prenom, Adresse, tel, Rotation, Salaire, code, serv) {
         let ajax = {
             method: "new_Inf",
             Nom: Nom,
@@ -327,7 +329,7 @@ $(document).ready(function() {
             Rotation: Rotation,
             Salaire: Salaire,
             code: code,
-            serv:serv
+            serv: serv
         }
         $.ajax({
             url: "customer.php",
@@ -365,7 +367,7 @@ $(document).ready(function() {
 
     //fonction MODIF Infirmier
 
-    function editInf(id,Nom, Prenom, Adresse, tel, Rotation, Salaire, code,serv) {
+    function editInf(id, Nom, Prenom, Adresse, tel, Rotation, Salaire, code, serv) {
         let ajax = {
             method: "editInf",
             id: id,
@@ -376,7 +378,7 @@ $(document).ready(function() {
             Rotation: Rotation,
             Salaire: Salaire,
             code: code,
-            serv:serv
+            serv: serv
 
 
         }

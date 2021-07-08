@@ -20,15 +20,24 @@
                  <div class="col-12 col-md-12 col-lg-5">
                      <div class="card profile-widget">
                          <div class="profile-widget-header">
-                             <img alt="image" src="assets/img/avatar/avatar-1.png"
+                             <img alt="image" src="assets/img/avatar/doctt.png"
                                  class="rounded-circle profile-widget-picture">
 
                          </div>
                          <div class="profile-widget-description">
-                             <div class="profile-widget-name">Admin <div class="text-muted d-inline font-weight-normal">
-                                     <?php echo ($_SESSION['Admin_nomComplet']); ?></div>
+                             <div class="profile-widget-name" style="text-align: center;">Administrateur <br>
                              </div>
                              <div class="py-4" id="info">
+                                 <p class="clearfix">
+                                     <span class="float-left">
+                                         Nom Complet
+                                     </span>
+                                     <span class="float-right text-muted">
+                                         <?php echo ($_SESSION['Admin_nomComplet']); ?>
+                                     </span>
+                                 </p>
+
+
                                  <p class="clearfix">
                                      <span class="float-left">
                                          Nom utilisateur
@@ -45,14 +54,7 @@
                                          <?php echo ($_SESSION['Admin_nomComplet']); ?>@gmail.com
                                      </span>
                                  </p>
-                                 <p class="clearfix">
-                                     <span class="float-left">
-                                         mot de passe
-                                     </span>
-                                     <span class="float-right text-muted">
-                                         <?php echo ($_SESSION['Admin_password']); ?>
-                                     </span>
-                                 </p>
+
 
 
                              </div>
@@ -72,13 +74,13 @@
                                          <label>Nom Complet</label>
                                          <input type="text" name="nomc" class="form-control"
                                              value=" <?php echo ($_SESSION['Admin_nomComplet']); ?>" required="">
-                                         <div class="invalid-feedbaack">Please fill in the first name</div>
+                                         <div class="invalid-feedback">Verfier votre nom</div>
                                      </div>
                                      <div class="form-group col-md-6 col-12">
                                          <label>Nom utilisateur</label>
                                          <input type="text" name="nom" class="form-control"
                                              value="<?php echo ($_SESSION['Admin_username']); ?>" required="">
-                                         <div class="invalid-feedback">Please fill in the last name</div>
+                                         <div class="invalid-feedback">Verfier votre username</div>
                                      </div>
                                  </div>
                                  <div class="row">
@@ -87,13 +89,9 @@
                                          <input type="email" class="form-control"
                                              value=" <?php echo ($_SESSION['Admin_nomComplet']); ?>@gmail.com"
                                              required="">
-                                         <div class="invalid-feedback">Please fill in the email</div>
+                                         <div class="invalid-feedback">verifier votre email</div>
                                      </div>
-                                     <div class="form-group col-md-5 col-12">
-                                         <label>Mot de passe</label>
-                                         <input type="text" name="passe" class="form-control"
-                                             value="<?php echo ($_SESSION['Admin_password']); ?>">
-                                     </div>
+
                                  </div>
                              </div>
                              <div class="card-footer text-right">
